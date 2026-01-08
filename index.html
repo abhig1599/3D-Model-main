@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Model Viewer - Inside & Outside</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="viewer-container">
+            <canvas id="canvas"></canvas>
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Loading 3D Model...</p>
+            </div>
+            <div class="view-mode-container">
+                <button class="view-mode-btn active" data-mode="3d">3D VIEW</button>
+                <button class="view-mode-btn" data-mode="ar">AR View</button>
+            </div>
+            <div class="info-panel">
+                <h2 id="view-title">Outside View</h2>
+                <p>Use your mouse to rotate the model</p>
+                <p>Scroll to zoom in/out</p>
+                <p>Right-click and drag to pan</p>
+            </div>
+            <div class="tab-container">
+                <button class="tab-btn active" data-view="outside">Outside</button>
+                <button class="tab-btn" data-view="inside">Inside</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
