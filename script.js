@@ -153,7 +153,7 @@ function loadModels() {
     
     // Load outside model
     loader.load(
-        'outside.glb',
+        'outside3.glb',
         (gltf) => {
             // Load outside view
             outsideModel = gltf.scene;
