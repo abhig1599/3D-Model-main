@@ -168,16 +168,27 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    body {
+        height: 100dvh;
+    }
+
+    .container {
+        height: 100dvh;
+    }
+
     .tab-container {
         bottom: 20px;
         padding: 10px 15px;
         gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .tab-btn {
         padding: 8px 16px;
         font-size: 12px;
         min-width: 90px;
+        touch-action: manipulation;
     }
 
     .info-panel {
@@ -192,45 +203,123 @@ body {
         font-size: 12px;
     }
 
+    .info-panel p {
+        font-size: 10px;
+    }
+
     .view-mode-container {
         top: 10px;
         right: 10px;
         gap: 8px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
     }
 
     .view-mode-btn {
         padding: 8px 12px;
         font-size: 11px;
         min-width: 80px;
+        touch-action: manipulation;
     }
 }
 
 @media (max-width: 480px) {
+    body {
+        height: 100dvh;
+    }
+
+    .container {
+        height: 100dvh;
+    }
+
     .tab-container {
         bottom: 15px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
         padding: 8px 12px;
         gap: 8px;
+        width: calc(100% - 30px);
+        max-width: 100%;
     }
 
     .tab-btn {
         padding: 8px 14px;
         font-size: 11px;
-        min-width: 75px;
+        min-width: 0;
+        flex: 1;
+        touch-action: manipulation;
     }
 
     .info-panel {
-        display: none;
+        top: 10px;
+        left: 10px;
+        right: 80px;
+        max-width: none;
+        font-size: 10px;
+        padding: 10px 12px;
+    }
+
+    .info-panel h2 {
+        font-size: 11px;
+        margin-bottom: 6px;
+    }
+
+    .info-panel p {
+        font-size: 9px;
+        margin-bottom: 4px;
     }
 
     .view-mode-container {
         top: 8px;
         right: 8px;
         gap: 5px;
+        flex-direction: column;
     }
 
     .view-mode-btn {
-        padding: 6px 10px;
+        padding: 6px 8px;
         font-size: 10px;
-        min-width: 65px;
+        min-width: 60px;
+        touch-action: manipulation;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 360px) {
+    .info-panel {
+        display: none;
+    }
+
+    .view-mode-btn {
+        padding: 5px 8px;
+        font-size: 9px;
+        min-width: 50px;
+    }
+
+    .tab-btn {
+        padding: 6px 12px;
+        font-size: 10px;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .tab-btn,
+    .view-mode-btn {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .view-mode-btn:active {
+        background: rgba(46, 66, 255, 0.9);
+        border-color: #2E42FF;
+    }
+
+    .tab-btn:active {
+        background: rgba(46, 66, 255, 0.9);
+        border-color: #2E42FF;
     }
 }

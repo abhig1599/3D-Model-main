@@ -62,7 +62,9 @@ function initScene() {
 function setupControls() {
     let isDragging = false;
     let previousMousePosition = { x: 0, y: 0 };
+    let touchStartDistance = 0;
 
+    // Mouse controls
     renderer.domElement.addEventListener('mousedown', (e) => {
         isDragging = true;
         previousMousePosition = { x: e.clientX, y: e.clientY };
@@ -84,6 +86,7 @@ function setupControls() {
         isDragging = false;
     });
 
+    // Mouse wheel zoom
     renderer.domElement.addEventListener('wheel', (e) => {
         e.preventDefault();
         const zoomSpeed = 0.1;
@@ -93,6 +96,53 @@ function setupControls() {
             camera.position.z -= zoomSpeed;
         }
         camera.position.z = Math.max(1, Math.min(20, camera.position.z));
+    });
+
+    // Touch controls for mobile
+    renderer.domElement.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+            isDragging = true;
+            previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        } else if (e.touches.length === 2) {
+            // Pinch zoom
+            const dx = e.touches[0].clientX - e.touches[1].clientX;
+            const dy = e.touches[0].clientY - e.touches[1].clientY;
+            touchStartDistance = Math.sqrt(dx * dx + dy * dy);
+        }
+    });
+
+    renderer.domElement.addEventListener('touchmove', (e) => {
+        if (e.touches.length === 1 && isDragging && currentModel) {
+            e.preventDefault();
+            const deltaX = e.touches[0].clientX - previousMousePosition.x;
+            const deltaY = e.touches[0].clientY - previousMousePosition.y;
+
+            currentModel.rotation.y += deltaX * 0.01;
+            currentModel.rotation.x += deltaY * 0.01;
+
+            previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        } else if (e.touches.length === 2) {
+            // Pinch zoom
+            e.preventDefault();
+            const dx = e.touches[0].clientX - e.touches[1].clientX;
+            const dy = e.touches[0].clientY - e.touches[1].clientY;
+            const touchDistance = Math.sqrt(dx * dx + dy * dy);
+            const zoomDelta = touchDistance - touchStartDistance;
+            const zoomSpeed = 0.01;
+
+            if (zoomDelta > 0) {
+                camera.position.z += zoomSpeed;
+            } else {
+                camera.position.z -= zoomSpeed;
+            }
+            camera.position.z = Math.max(1, Math.min(20, camera.position.z));
+            touchStartDistance = touchDistance;
+        }
+    });
+
+    renderer.domElement.addEventListener('touchend', () => {
+        isDragging = false;
+        touchStartDistance = 0;
     });
 }
 
